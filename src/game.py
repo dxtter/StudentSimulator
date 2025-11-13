@@ -1,2 +1,3 @@
-with open('systems/io_cli.py', encoding = 'utf-8') as fichier:
-    
+from systems.io_cli import afficher_choix_debase
+afficher_choix_debase()
+
