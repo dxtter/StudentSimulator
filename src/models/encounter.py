@@ -17,7 +17,7 @@ def autreschoix():
         i = randint(0,len(autres)-1)
         if autres[i] not in nouvelles_actions:
             nouvelles_actions.append(autres[i])
-    print(nouvelles_actions)
+   )
 
 
     return  nouvelles_actions
