@@ -1,5 +1,37 @@
+[
 {
     "nom" : "examen",
-    "difficulte": "80",
+    "difficulte": 8,
+    "punitivite" : 10,
+    "sante_mentale" :  10
     
-}
+},
+
+{
+    "nom": "devoir",
+    "difficulte" : 3,
+    "punitivite" : 5,
+    "sante_mentale" :
+},
+
+{
+    "nom" : "laboratoire",
+    "difficulte": 6,
+    "punitivite" : 8,
+    "sante_mentale" :
+},
+
+{
+    "nom" : "projet",
+    "difficulte": 9,
+    "punitivite" : 20,
+    "sante_mentale" :
+},
+
+{
+    "nom" : "présentation orale",
+    "difficulte": 10,
+    "punitivite" : 30,
+    "sante_mentale" :
+}   
+]
