@@ -3,6 +3,9 @@ afficher_choix_debase()
 
 from systems.rng import initialiser_rng
 
+from data.statjoueur import stat_joueur
+import copy #copie du dico des stats du joueur pour pouvoir le modif
+
 def main():
     print("BIENVENUE A L'UNIVERSITE")
     
@@ -17,8 +20,11 @@ def main():
     
     # ... Le reste du jeu commence ici ...
     # ... Création du joueur ...
-    # ... Boucle de jeu ...
 
+    # ... Boucle de jeu ...
+    while stat_joueur["points de vie"] > 0 :  #boucle principale tant que la vie du joueur est supérieure à 0,jeu continue
+        for tour in range(1,6):
+            print(f"Tour de préparation {tour}/5") #afficher le nbr de tour de preparation 
 
 
 
