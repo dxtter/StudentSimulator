@@ -1,23 +1,23 @@
 from random import randint
 
 def choixdispo ():
-    return ['dormir','étudier','autres']
+    return ['Dormir','Etudier','Autres']
 import json
 
 
 def autreschoix():
-    with open ("src\data/skills.json", encoding= "utf-8") as f :
+    with open ("src/data/skills.json", encoding= "utf-8") as f :
         skills=json.load(f)
     autres =[]
     for i in skills:
-        if i["nom"]!='dormir' and i["nom"]!="étudier":
+        if i["nom"]!='Dormir' and i["nom"]!="Etudier":
             autres.append(i["nom"])
     nouvelles_actions = []
     while len(nouvelles_actions)<3:
         i = randint(0,len(autres)-1)
         if autres[i] not in nouvelles_actions:
             nouvelles_actions.append(autres[i])
-   )
+   
 
 
     return  nouvelles_actions

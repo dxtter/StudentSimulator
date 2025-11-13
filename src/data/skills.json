@@ -1,35 +1,35 @@
 [
 {
-    "nom" : "dormir",
+    "nom" : "Dormir",
     "sante_mentale" : 8, 
     "connaissance" : 0
 },
 
 {
-    "nom" : "étudier",
+    "nom" : "Etudier",
     "sante_mentale" : -5, 
     "connaissance" : 10
 },
 
 {
-    "nom" : "aller aux guidances",
+    "nom" : "Aller aux guidances",
     "sante_mentale" : -1, 
     "connaissance" : 15
 },
 
 {
-    "nom" : "aller en soirée ",
+    "nom" : "Aller en soirée ",
     "sante_mentale" : 20,
     "connaissance" : 0
 },
 
 {
-    "nom" : "aller à la bibliothèque",
+    "nom" : "Aller à la bibliothèque",
     "sante_mentale" : -12, 
     "connaissance" : 20
 },
 {
-    "nom" : "repas de famille",
+    "nom" : "Repas de famille",
     "sante_mentale" : 15, 
     "connaissance" : 0
 }

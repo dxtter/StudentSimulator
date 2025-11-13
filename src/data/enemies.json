@@ -1,6 +1,6 @@
 [
 {
-    "nom" : "examen",
+    "nom" : "Examen",
     "difficulte": 8,
     "punitivite" : -10,
     "sante_mentale" :  -10
@@ -8,28 +8,28 @@
 },
 
 {
-    "nom": "devoir",
+    "nom": "Devoir",
     "difficulte" : 3,
     "punitivite" : -5,
     "sante_mentale" : -5
 },
 
 {
-    "nom" : "laboratoire",
+    "nom" : "Laboratoire",
     "difficulte": 6,
     "punitivite" : -8,
     "sante_mentale" : -8
 },
 
 {
-    "nom" : "projet",
+    "nom" : "Projet",
     "difficulte": 9,
     "punitivite" : -20,
     "sante_mentale" : -20
 },
 
 {
-    "nom" : "présentation orale",
+    "nom" : "Présentation orale",
     "difficulte": 10,
     "punitivite" : -30,
     "sante_mentale" : -30

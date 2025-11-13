@@ -1,7 +1,6 @@
 from systems.io_cli import afficher_choix_debase
 afficher_choix_debase()
 
-<<<<<<< HEAD
 from systems.rng import initialiser_rng
 
 def main():
@@ -31,6 +30,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-=======
-
->>>>>>> 984852132e54441071985313acb8ec789b6194c0
