@@ -2,19 +2,37 @@
 {
     "nom" : "dormir",
     "sante_mentale" : 8, 
-    "conaissance" : 0
+    "connaissance" : 0
 },
 
 {
     "nom" : "etudier",
     "sante_mentale" : -5, 
-    "conaissance" : 10
+    "connaissance" : 10
 },
+
 {
     "nom" : "aller aux guidances",
     "sante_mentale" : -1, 
-    "conaissance" : 15
-}
+    "connaissance" : 15
+},
 
-# mettre ou nom les autres choix possibles ici? si oui comment on fait? 
+{
+    "nom" : "aller en soirée ",
+    "sante_mentale" : 20,
+    "connaissance" : 0
+},
+
+{
+    "nom" : "aller à la bibliothèque",
+    "sante_mentale" : -12, 
+    "connaissance" : 20
+},
+{
+    "nom" : "repas de famille",
+    "sante_mentale" : 15, 
+    "connaissance" : 0
+}
 ]
+
+# creer un nouveau fichier exta skills ou alors dans celui ci mais apres dans le code principal bien appeller ceux qu on veut 
