@@ -11,27 +11,27 @@
     "nom": "devoir",
     "difficulte" : 3,
     "punitivite" : 5,
-    "sante_mentale" :
+    "sante_mentale" : 5
 },
 
 {
     "nom" : "laboratoire",
     "difficulte": 6,
     "punitivite" : 8,
-    "sante_mentale" :
+    "sante_mentale" : 8
 },
 
 {
     "nom" : "projet",
     "difficulte": 9,
     "punitivite" : 20,
-    "sante_mentale" :
+    "sante_mentale" : 20
 },
 
 {
     "nom" : "présentation orale",
     "difficulte": 10,
     "punitivite" : 30,
-    "sante_mentale" :
+    "sante_mentale" : 30
 }   
 ]

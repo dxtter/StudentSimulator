@@ -1,0 +1,20 @@
+[
+{
+    "nom" : "dormir",
+    "sante_mentale" : 8, 
+    "conaissance" : 0
+},
+
+{
+    "nom" : "etudier",
+    "sante_mentale" : -5, 
+    "conaissance" : 10
+},
+{
+    "nom" : "aller aux guidances",
+    "sante_mentale" : -1, 
+    "conaissance" : 15
+}
+
+# mettre ou nom les autres choix possibles ici? si oui comment on fait? 
+]
