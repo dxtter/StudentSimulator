@@ -6,3 +6,7 @@ from models.encounter import autreschoix
 def afficher_autreschoix():
     choixpossibles=autreschoix()
     print (f"1) {choixpossibles[0]}\n2) {choixpossibles[1]}\n3) {choixpossibles[2]}")
+
+#from models.player import stat_joueur_copy
+#def afficher_stat_joueur():
+   # print (f"Points de vie : ")

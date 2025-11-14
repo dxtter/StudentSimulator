@@ -1,0 +1,1 @@
+#Faire une un dictionnaire copie de data.statjoueur pour pas modifier la data principale
