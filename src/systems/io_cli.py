@@ -7,6 +7,8 @@ def afficher_autreschoix():
     choixpossibles=autreschoix()
     print (f"1) {choixpossibles[0]}\n2) {choixpossibles[1]}\n3) {choixpossibles[2]}")
 
-#from models.player import stat_joueur_copy
-#def afficher_stat_joueur():
-   # print (f"Points de vie : ")
+
+def afficher_stat_joueur(stat_joueur):
+
+    print("\nStatistiques actuelles de l'étudiant(e):\n")
+    print (f"Points de vie :{stat_joueur['points de vie']}/100\n\nVie sociale :{stat_joueur['vie sociale']}/100\n\nPoints de connaissances :{stat_joueur['points de connaissances']}/100\n")

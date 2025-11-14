@@ -1,8 +1,10 @@
 from systems.io_cli import afficher_choix_debase
 afficher_choix_debase()
 
-from models.encounter import autreschoix
-autreschoix()
 
-from systems.io_cli import afficher_autreschoix
-afficher_autreschoix()
+
+
+
+from systems.io_cli import afficher_stat_joueur
+from data.statjoueur import  stat_joueur
+afficher_stat_joueur(stat_joueur)

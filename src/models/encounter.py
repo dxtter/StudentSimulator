@@ -2,11 +2,12 @@ from random import randint
 
 def choixdispo ():
     return ['Dormir','Etudier','Autres']
+
 import json
 
 
 def autreschoix():
-    with open ("src/data/skills.json", encoding= "utf-8") as f :
+    with open ("../../data/skills.json", encoding= "utf-8") as f :
         skills=json.load(f)
     autres =[]
     for i in skills:
