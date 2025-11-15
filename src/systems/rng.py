@@ -7,6 +7,7 @@ import time
 GRAINE_ACTUELLE = None
 
 def initialiser_rng(seed_entree=None):
+
     """
     Configure le générateur aléatoire.
     - Si seed_entree est fourni (par le joueur), on l'utilise.
