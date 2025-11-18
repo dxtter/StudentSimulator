@@ -9,3 +9,6 @@ def modif_stat_joueur(stat_joueur, cle_stat, value): #value est la la valeur de 
     elif cle_stat=="points de vie" : 
         stat_joueur[cle_stat] = max(0,stat_joueur[cle_stat]) #permet de remettre a 0 pt de vie si c est negatif et de ne pas afficher en fin de partie des pt de vie negatif
     return stat_joueur
+
+
+
