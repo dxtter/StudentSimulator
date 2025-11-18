@@ -35,15 +35,14 @@ def main():
             afficher_choix_debase()  #afficher les choix de base 
             liste_a_disposition_du_joueur= choixdispo() 
             #gérer choix de l'utilisateur
-            choix_du_joueur=input("Choisissez une action (1, 2, ou 3) : ")
-            v_action_choisie = action_choisie(choix_du_joueur,liste_a_disposition_du_joueur)
+            
+            v_action_choisie = action_choisie(liste_a_disposition_du_joueur)   
             print(f"l'utilisateur a choisi : {v_action_choisie}")
             if v_action_choisie == 'Autres':
                 
-                liste_autres_choix= autreschoix()
-                afficher_autreschoix(liste_autres_choix)
-                choix_du_joueur=input("Choisissez une action (1, 2, ou 3) : ")
-                v_action_choisie= action_choisie(choix_du_joueur,liste_autres_choix)
+                liste_a_disposition_du_joueur= autreschoix()
+                afficher_autreschoix(liste_a_disposition_du_joueur)
+                v_action_choisie= action_choisie(liste_a_disposition_du_joueur)
                 print(f"L'utilisateur a choisi : {v_action_choisie}")
 
 

@@ -23,15 +23,21 @@ def autreschoix(): #fonction qui renvoie une liste des nouvelles actions, action
 
     return  nouvelles_actions
 
-def action_choisie(choix_utilisateur,liste_choix): #il faut donner à la fonction l'input de l'utilisateur et la liste des choix possibles (soit les choix de base soit les autres choix)
+def action_choisie(liste_choix): #il faut donner à la fonction l'input de l'utilisateur et la liste des choix possibles (soit les choix de base soit les autres choix)
+    choix_utilisateur =0
+    while choix_utilisateur not in [1,2,3]:
+        choix_utilisateur = input("Choisissez une action (1, 2, ou 3) : ")
+        if choix_utilisateur == '1':
+            return liste_choix[0]
+        elif choix_utilisateur == '2':
+            return liste_choix[1]
+        elif choix_utilisateur == '3' :
+            return liste_choix[2]
+        else : 
+            print("veuillez choisir un nombre entre 1 et 3")
+    
+    
 
-    if choix_utilisateur == '1':
-        return liste_choix[0]
-    elif choix_utilisateur == '2':
-        return liste_choix[1]
-    elif choix_utilisateur == '3' :
-        return liste_choix[2]
-    else:
-        return 'Choix invalide'  #gestion d'erreur si l'utilisateur entre un choix invalide
+
 
 
