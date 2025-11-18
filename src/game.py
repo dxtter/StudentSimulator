@@ -44,6 +44,7 @@ def main():
                 afficher_autreschoix(liste_a_disposition_du_joueur)
                 v_action_choisie= action_choisie(liste_a_disposition_du_joueur)
                 print(f"L'utilisateur a choisi : {v_action_choisie}")
+            #ici
 
 
             
