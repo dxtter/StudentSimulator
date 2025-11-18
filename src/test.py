@@ -19,8 +19,8 @@ stat = {
     "points de connaissances" : 0,
     "multiplicateur de connaissances" : 1
 }
-action_choisie="Dormir"
+action_choisie="Examen"
 from models.player import appliquer_chgt_stat_joueur
 print(stat)
-stat=appliquer_chgt_stat_joueur(stat,action_choisie)
+stat=appliquer_chgt_stat_joueur(stat,action_choisie,"enemies",False)
 print(stat)
