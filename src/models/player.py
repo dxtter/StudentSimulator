@@ -11,4 +11,20 @@ def modif_stat_joueur(stat_joueur, cle_stat, value): #value est la la valeur de 
     return stat_joueur
 
 
+import json
+def appliquer_chgt_stat_joueur(stat_player,nom_action_choisie) :#ennemi_ou_skills donner comme arg dico stat player et str de l action choisie
+   # chemin_acces = "data/" + ennemi_ou_skills + ".json"
+    
+    with open ("data/skills.json", encoding= "utf-8") as f :
+        skills=json.load(f)
+    action_data=""
+    for skill in skills :
+        if nom_action_choisie== skill["nom"] : 
+            action_data= skill 
+            break #pour arreter la boucle des que l action est trouvée dans le dic
+    if "sante_mentale" in action_data: #cherche si sante_mentale est bien dans le dic action data 
+        stat_player["vie sociale"]+=skill["sante_mentale"]
+    if "connaissances" in action_data : #meme chose qu'avant 
+        stat_player["points de connaissances"]+=skill["connaissance"]
+    return (stat_player) #return 
 
