@@ -30,3 +30,11 @@ def initialiser_rng(seed_entree=None):
     
     print(f"[DEBUG] Système RNG initialisé avec la graine : {GRAINE_ACTUELLE}")
     return GRAINE_ACTUELLE
+
+def calcul_chance_succes_epreuve(connaissance, difficulte ):
+    proba_reussite_epreuve = (connaissance/100)**(difficulte/3)
+    return proba_reussite_epreuve
+
+def reussite_ou_echec(proba_reussite):
+    return random.random() < proba_reussite
+

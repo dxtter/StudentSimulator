@@ -13,3 +13,9 @@ def afficher_stat_joueur(stat_joueur): #fonction servant à afficher les barres 
     print("\nStatistiques actuelles de l'étudiant(e):\n")
     print (f"Points de vie :{stat_joueur['points de vie']}/100\n\nVie sociale :{stat_joueur['vie sociale']}/100\n\nPoints de connaissances :{stat_joueur['points de connaissances']}/100\n")
     #Daniel : j'ai ajouté le multiplicateur de connaissances \nMultiplicateur de connaissances :{stat_joueur["multiplicateur de connaissances"]}
+
+def affichage_apres_epreuve(reussite):
+    if reussite :
+        print("bien joué ! Vous vous en êtes tirés pour cette fois mais l'année n'est pas encore finie Mouhahahaha")
+    elif not reussite:
+        print("Vous n'êtes qu'un bon à rien, revenez l'année prochaine pour retenter votre chance")
