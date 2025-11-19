@@ -1,10 +1,15 @@
 
 
-from systems.rng import initialiser_rng
+from systems.rng import initialiser_rng, calcul_chance_succes_epreuve, reussite_ou_echec
+from systems.io_cli import afficher_stat_joueur, afficher_choix_debase,  afficher_autreschoix, affichage_apres_epreuve
+
 from models.encounter import action_choisie, choixdispo, autreschoix
+from models.player import modif_stat_joueur
+from models.enemy import choisit_un_ennemi_random
 
 from data.statjoueur import stat_joueur 
-from systems.io_cli import afficher_stat_joueur, afficher_choix_debase,  afficher_autreschoix
+import json
+
 import copy #copie du dico des stats du joueur pour pouvoir le modif
 
 
@@ -25,12 +30,43 @@ def main():
     
     # ... Le reste du jeu commence ici ...
     # ... Création du joueur ...
-    compteur_de_tours = 0 
+    compteur_de_tours_globaux = 0 
     # ... Boucle de jeu ...
-    while stat_joueur["points de vie"] > 0 and compteur_de_tours <=0:  #boucle principale tant que la vie du joueur est supérieure à 0,jeu continue
-        compteur_de_tours += 1
-        for tour in range(1,2): #modifié pour faire 1 seul tour de préparation pour l'instant
-            print(f"Tour de préparation {tour}/5") #afficher le nbr de tour de preparation 
+    while stat_player["points de vie"] > 0 and compteur_de_tours_globaux <=100:  #boucle principale tant que la vie du joueur est supérieure à 0,jeu continue
+        compteur_de_tours_globaux += 1
+        stat_player["points de connaissances"] =0 #à chaque tour, le joueur gagne des points de connaissance en fonction de son multiplicateur
+        ennemi = choisit_un_ennemi_random() #choisir un ennemi aléatoire (son nom)
+        print(f"Vous allez affronter : {ennemi} après les 5 tours de préparation ! Bonne chance !")
+        with open("data/enemies.json", encoding="utf-8") as f: #ouvre le fichier json avec tous les ennemis
+            ennemis = json.load(f)
+            for e in ennemis:
+                if e["nom"] == ennemi:
+                    ennemi = e #trouve le dico de l'ennemi choisi !!! ennemi devinent un dictionnaire et non une chaine de caractere
+                    break
+        print(f"Ses difficulté est de : {ennemi['difficulte']}/10")
+
+
+        for tour_preparation in range(1,7): #modifié pour faire 5 tours de préparation pour l'instant + 1 tour combat de boss (tour 6)
+            if tour_preparation == 6:
+                print("----- TOUR DE COMBAT DE BOSS -----") #print tour de combat de boss si c'est le tour 6
+            else:
+                print(f"Tour de préparation {tour_preparation}/5") #afficher le nbr de tour de preparation 
+            if tour_preparation == 6: #tour du combat de boss
+                print("Tic Tac... L'heure a sonné... La deadline est terminée.. J'espère que vous êtes bien préparé(e)")
+                
+                proba_reussite = calcul_chance_succes_epreuve(stat_player["points de connaissances"], ennemi["difficulte"]) #calcule la proba de reussite de l'epreuve en fonction de la connaissance du joueur et de la difficulté de l'ennemi
+                print(f"[DEBUG] Probabilité de réussite de l'épreuve : {proba_reussite}")
+                reussite = reussite_ou_echec(proba_reussite) #détermine si le joueur réussit ou échoue l'épreuve en fonction de la proba calculée avec le module random (seedé ou pas)
+                affichage_apres_epreuve(reussite) #affiche un message en fonction de la réussite ou de l'échec
+                stat_player = modif_stat_joueur(stat_player, ennemi["nom"], "enemies", reussite) #modifie les stats du joueur en fonction de la réussite ou de l'échec de l'épreuve contre l'ennemi
+
+                print(f"[DEBUG]{stat_player}")
+                break  #sortir de la boucle de préparation pour revenir à la boucle principale car fin des tours de préparation
+
+                
+                
+
+
             afficher_stat_joueur(stat_player)  #afficher les stats du joueur
             afficher_choix_debase()  #afficher les choix de base 
             liste_a_disposition_du_joueur= choixdispo() 
@@ -44,7 +80,9 @@ def main():
                 afficher_autreschoix(liste_a_disposition_du_joueur)
                 v_action_choisie= action_choisie(liste_a_disposition_du_joueur)
                 print(f"L'utilisateur a choisi : {v_action_choisie}")
-            #ici
+            #ici modfication de la stat de la stat du joueur en fonction de l'action choisie
+            stat_player = modif_stat_joueur(stat_player,v_action_choisie,"skills")
+            
 
 
             
