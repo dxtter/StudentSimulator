@@ -1,4 +1,6 @@
 from random import randint
+from models.player import verif_sante_mentale_insuffisante
+from copy import deepcopy
 
 def choixdispo ():  #fonction renvoyant une liste des choix de base de l'utilisateur à chaque tour de préparation
     return ['Dormir','Etudier','Autres']
@@ -6,22 +8,46 @@ def choixdispo ():  #fonction renvoyant une liste des choix de base de l'utilisa
 import json
 
 
-def autreschoix(): #fonction qui renvoie une liste des nouvelles actions, actions qui seront affichées si l'utilisateur séléctionne le choix 'Autres' dans les choix de base 
+def autreschoix(SM_insuffisante): 
     with open ("data/skills.json", encoding= "utf-8") as f :
-        skills=json.load(f)
-    autres =[]
-    for i in skills:
-        if i["nom"]!='Dormir' and i["nom"]!="Etudier":
-            autres.append(i["nom"])
-    nouvelles_actions = []
-    while len(nouvelles_actions)<3:
-        i = randint(0,len(autres)-1)
-        if autres[i] not in nouvelles_actions:
-            nouvelles_actions.append(autres[i])
-   
+        liste_skills_json = json.load(f)
+        skills_json =deepcopy(liste_skills_json)
+    nouveaux_skills={}
+    liste_interdits = ["Dormir","Etudier"]
+    while len(nouveaux_skills) <= 1:
+        indice_element_json = randint(0, len(skills_json)-1)
+
+        cle_nom=liste_skills_json[indice_element_json].get("nom") #renvoie la valeur de la cle nom 
+        if cle_nom not in liste_interdits :
+            liste_interdits.append(cle_nom)
+            skills_json[indice_element_json].pop("nom")
+            nouveaux_skills[cle_nom]=skills_json[indice_element_json]
+    
+    while len(nouveaux_skills) <= 2:
+        indice_element_json = randint(0, len(skills_json)-1)
+        cle_nom=liste_skills_json[indice_element_json].get("nom") #renvoie la valeur de la cle nom
+        if SM_insuffisante:
+            
+            if cle_nom not in liste_interdits and skills_json[indice_element_json]["sante_mentale"] >0:
+                nouveaux_skills[cle_nom] = skills_json[indice_element_json]
+        else :
+            if cle_nom not in liste_interdits:
+                skills_json[indice_element_json].pop("nom")
+                nouveaux_skills[cle_nom]= skills_json[indice_element_json]
+    liste_cles_dico = list(nouveaux_skills.keys())
+    return liste_cles_dico
 
 
-    return  nouvelles_actions
+
+
+
+    
+    
+    
+    
+
+
+
 
 def action_choisie(liste_choix): #il faut donner à la fonction l'input de l'utilisateur et la liste des choix possibles (soit les choix de base soit les autres choix)
     choix_utilisateur =0
@@ -37,7 +63,17 @@ def action_choisie(liste_choix): #il faut donner à la fonction l'input de l'uti
             print("veuillez choisir un nombre entre 1 et 3")
     
     
-
+def verif_choix_valide_cas_sante_mentale(choix_utilisateur): #fonction servant à vérifier si le choix de l'utilisateur est valide dans le cas où sa santé mentale est insuffisante
+    with open ("data/skills.json", encoding= "utf-8") as f :
+        skills=json.load(f)
+    for skill in skills:
+        if skill["nom"]==choix_utilisateur:
+            
+            if skill["sante_mentale"]>0:
+                return True #renvoie True si le choix est valide (ajoute de la santé mentale)
+            else :
+                return False #renvoie False si le choix n'est pas valide (n'ajoute pas de santé mentale)
+            
 
 
 

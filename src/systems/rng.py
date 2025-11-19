@@ -36,5 +36,5 @@ def calcul_chance_succes_epreuve(connaissance, difficulte ): #donner un int conn
     return proba_reussite_epreuve
 
 def reussite_ou_echec(proba_reussite):
-    return random.random() < proba_reussite
+    return random.random() <= proba_reussite
 

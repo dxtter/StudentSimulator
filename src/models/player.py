@@ -28,5 +28,13 @@ def modif_stat_joueur(stat_player,nom_action_choisie, ennemi_ou_skills,gagne_per
     return (stat_player) #return 
 
 
+def verif_sante_mentale_insuffisante(sante_mentale_actuelle) : #donner en argument un int de santé mentale actuelle du joueur
+    if sante_mentale_actuelle <=20 :
+        return True
+    else :
+        return False 
+    #return bool pour savoir si la santé mentale est insuffisante(True) ou pas(False) (seuil à 20) 
+
+
 
 

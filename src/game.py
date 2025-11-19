@@ -3,8 +3,8 @@
 from systems.rng import initialiser_rng, calcul_chance_succes_epreuve, reussite_ou_echec
 from systems.io_cli import afficher_stat_joueur, afficher_choix_debase,  afficher_autreschoix, affichage_apres_epreuve
 
-from models.encounter import action_choisie, choixdispo, autreschoix
-from models.player import modif_stat_joueur
+from models.encounter import action_choisie, choixdispo, autreschoix,verif_choix_valide_cas_sante_mentale
+from models.player import modif_stat_joueur, verif_sante_mentale_insuffisante
 from models.enemy import choisit_un_ennemi_random
 
 from data.statjoueur import stat_joueur 
@@ -47,11 +47,11 @@ def main():
 
 
         for tour_preparation in range(1,7): #modifié pour faire 5 tours de préparation pour l'instant + 1 tour combat de boss (tour 6)
-            if tour_preparation == 6:
-                print("----- TOUR DE COMBAT DE BOSS -----") #print tour de combat de boss si c'est le tour 6
-            else:
-                print(f"Tour de préparation {tour_preparation}/5") #afficher le nbr de tour de preparation 
+            sante_mentale_insuffisante = verif_sante_mentale_insuffisante(stat_player["vie sociale"]) #vérifie à chaque tour de préparation si la santé mentale du joueur est insuffisante (True ou False)
+            afficher_stat_joueur(stat_player)  #afficher les stats du joueur
+            
             if tour_preparation == 6: #tour du combat de boss
+                print("----- TOUR DE COMBAT DE BOSS -----") #print tour de combat de boss si c'est le tour 6
                 print("Tic Tac... L'heure a sonné... La deadline est terminée.. J'espère que vous êtes bien préparé(e)")
                 
                 proba_reussite = calcul_chance_succes_epreuve(stat_player["points de connaissances"], ennemi["difficulte"]) #calcule la proba de reussite de l'epreuve en fonction de la connaissance du joueur et de la difficulté de l'ennemi
@@ -65,24 +65,40 @@ def main():
 
                 
                 
-
-
-            afficher_stat_joueur(stat_player)  #afficher les stats du joueur
-            afficher_choix_debase()  #afficher les choix de base 
-            liste_a_disposition_du_joueur= choixdispo() 
-            #gérer choix de l'utilisateur
+            else:
+                print(f"Tour de préparation {tour_preparation}/5") #afficher le nbr de tour de preparation 
             
-            v_action_choisie = action_choisie(liste_a_disposition_du_joueur)   
-            print(f"l'utilisateur a choisi : {v_action_choisie}")
-            if v_action_choisie == 'Autres':
-                
-                liste_a_disposition_du_joueur= autreschoix()
-                afficher_autreschoix(liste_a_disposition_du_joueur)
-                v_action_choisie= action_choisie(liste_a_disposition_du_joueur)
-                print(f"L'utilisateur a choisi : {v_action_choisie}")
-            #ici modfication de la stat de la stat du joueur en fonction de l'action choisie
+                choix_valide_final = False 
+                liste_a_disposition_du_joueur= choixdispo()
+                while not choix_valide_final:
+                    afficher_autreschoix(liste_a_disposition_du_joueur)
+
+                    v_action_choisie = action_choisie(liste_a_disposition_du_joueur)
+
+                    if v_action_choisie == 'Autres':
+                        liste_a_disposition_du_joueur= autreschoix(sante_mentale_insuffisante)
+                        afficher_autreschoix(liste_a_disposition_du_joueur)
+                        v_action_choisie= action_choisie(liste_a_disposition_du_joueur)
+                        if sante_mentale_insuffisante:
+                            if verif_choix_valide_cas_sante_mentale(v_action_choisie):
+                                choix_valide_final = True
+                            else:
+                                print("Veuillez choisir une action qui vous permettra de regagner de la santé mentale car votre santé mentale est trop basse.")
+                        else:
+                            choix_valide_final = True
+                    else:
+                        if sante_mentale_insuffisante:
+                            if verif_choix_valide_cas_sante_mentale(v_action_choisie):
+                                choix_valide_final = True
+                            else:
+                                print("Votre santé mentale est trop basse pour cette action, veuillez en choisir une autre qui vous permettra de regagner de la santé mentale.")
+                        else:
+                            choix_valide_final = True    
+
+                            #ici modfication de la stat de la stat du joueur en fonction de l'action choisie
             stat_player = modif_stat_joueur(stat_player,v_action_choisie,"skills")
-            
+                        
+    
 
 
             
@@ -96,3 +112,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+

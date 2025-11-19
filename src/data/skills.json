@@ -32,5 +32,12 @@
     "nom" : "Repas de famille",
     "sante_mentale" : 15, 
     "connaissance" : 0
+
+},
+{
+    "nom" : "Faire du sport",
+    "sante_mentale" : 10, 
+    "connaissance" : 5
 }
+
 ]
