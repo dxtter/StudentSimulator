@@ -17,21 +17,39 @@ import copy #copie du dico des stats du joueur pour pouvoir le modif
 def main():
 
     stat_player = copy.deepcopy(stat_joueur)  #copie du dico des stats du joueur pour pouvoir le modif sans toucher à l'original !!!!! utilisation de celui-là uniquement, jamais stat_joueur directement !!!!!
-    print("BIENVENUE A L'UNIVERSITE")
-    
-    # 1. Demander au joueur s'il a une seed (facultatif)
+    BOLD = '\033[1m'
+    RESET = '\033[0m'
+    print(f"""{BOLD}#######################################################
+                    BIENVENUE À L'UNIVERSITÉ
+    #######################################################{RESET}
+        
+Bienvenue, étudiant(e) courageux(se), dans l'arène académique la plus 
+impitoyable de la région. Votre objectif est simple : survivre aux sessions 
+intenses de révisions, aux assauts sournois de la fatigue mentale,afin de progresser de salle en salle.
+Chaque épreuve sera précédée d'une session de 5 tours de préparation. Lors de ces  tours, choisissez judicieusement vos actions :
+
+- {BOLD}Dormir{RESET} vous permettra de retrouver de l'équilibre mental.
+
+- {BOLD}Étudier{RESET} fera grimper votre barre de connaissances (⚠️ si vous êtes en forme uniquement !).
+
+- Tentez d'{BOLD}Autres{RESET} actions risquées pour des effets inattendus !
+
+
+Votre périple commence maintenant. Votre Santé Mentale est votre ressource la plus précieuse, si vous passez en dessous de la barre des 20, vous ne pourrez plus acquérir de la connaissance. Gérez la donc bien !""")
+        
+        # 1. Demander au joueur s'il a une seed (facultatif)
     choix_seed = input("Entrez une graine (ou Entrée pour aléatoire) : ")
-    
-    # 2. Initialiser le destin
+        
+        # 2. Initialiser le destin
     seed_utilisee = initialiser_rng(choix_seed)
-    
+        
     print(f"Partie lancée ! Seed : {seed_utilisee}")
     print("(Notez ce code pour rejouer exactement la même partie !)")
-    
-    # ... Le reste du jeu commence ici ...
-    # ... Création du joueur ...
+        
+        # ... Le reste du jeu commence ici ...
+        # ... Création du joueur ...
     compteur_de_tours_globaux = 0 
-    # ... Boucle de jeu ...
+        # ... Boucle de jeu ...
     while stat_player["points de vie"] > 0 and compteur_de_tours_globaux <=100:  #boucle principale tant que la vie du joueur est supérieure à 0,jeu continue
         compteur_de_tours_globaux += 1
         stat_player["points de connaissances"] =0 #à chaque tour, le joueur gagne des points de connaissance en fonction de son multiplicateur
