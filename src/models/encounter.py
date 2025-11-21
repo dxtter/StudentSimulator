@@ -74,6 +74,43 @@ def verif_choix_valide_cas_sante_mentale(choix_utilisateur): #fonction servant √
             else :
                 return False #renvoie False si le choix n'est pas valide (n'ajoute pas de sant√© mentale)
             
+def trois_choix_recompense():
+    
+    gagner_un_peu_de_vie =  {
+    "sante_mentale" : 0,
+    "points_de_vie": 5,
+    "connaissance": 0,
+    "augmenter_multiplicateur_connaissances" : 0,
+    "multiplicateur_de_multiplicateur_de_connaissances" : 1,
+    "nb_tours_d'application" : 0
+}
+    augmenter_multiplicateur =  {
+    "sante_mentale" : 0,
+    "points_de_vie": 5,
+    "connaissance": 0,
+    "augmenter_multiplicateur_connaissances" : 0.1,
+    "multiplicateur_de_multiplicateur_de_connaissances" : 1,
+    "nb_tours_d'application" : 0
+}
+
+    
+    dico_recompenses = {"gagner un peu de vie" : gagner_un_peu_de_vie,
+                        "augmenter le multiplicateur de connaissances globales" : augmenter_multiplicateur
+                        }
+    with open("data/items.json", encoding= "utf_8" ) as f :
+        items = json.load(f)
+    indice_element_item = randint(0, len(items)-1)
+    nom_objet =items[indice_element_item].pop("nom")
+    
+    dico_recompenses[nom_objet] = items[indice_element_item]
+
+    return dico_recompenses
+    
+    
+    
+            
+
+            
 
 
 
