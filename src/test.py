@@ -1,6 +1,6 @@
 
 
-from models.encounter import trois_choix_recompense, choix_joueur_recompense,appliquer_choix_recompense
+from models.encounter import trois_choix_recompense, choix_joueur_recompense,appliquer_choix_recompense,choix_joueur_récompense_inventaire
 from systems.io_cli import afficher_recompenses_au_joueur, afficher_inventaire_du_joueur
 stat_joueur = {
     "points de vie" : 80,
@@ -29,3 +29,6 @@ else :
 print(stat_joueur)
 print(inventiaire_joueur.keys())
 
+
+
+choix_joueur_récompense_inventaire(inventiaire_joueur)

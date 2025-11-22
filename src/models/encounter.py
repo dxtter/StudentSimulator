@@ -125,5 +125,21 @@ def choix_joueur_recompense(dico_reco):
 
             
 
-
-
+def choix_joueur_récompense_inventaire (inventaire_joueur, choix_objet_inventaire = True) : 
+    liste_inventaire = list(inventaire_joueur.keys())
+    print (liste_inventaire)
+    if liste_inventaire==[]:
+        print ('Votre inventaire est vide, aucune option possible')
+    while True :
+        choix_joueur_recompense = input ("Veuillez choisir un objet que vous souhaitez utiliser :")
+        try:
+            choix_joueur_recompense=int(choix_joueur_recompense)
+            if choix_joueur_recompense in [1, len(liste_inventaire)] :
+                nom_objet_choisi=liste_inventaire[choix_joueur_recompense-1]
+                print (f'Vous avez choisi :{nom_objet_choisi}' )
+                effet_objet_choisi=inventaire_joueur.pop(nom_objet_choisi)
+                return (effet_objet_choisi, nom_objet_choisi)
+            else : 
+                print (f'Veuillez choisir un entier entre 1 et {len(liste_inventaire)}')
+        except : 
+            print (f'Veuillez choisir un entier entre 1 et {len(liste_inventaire)}')
