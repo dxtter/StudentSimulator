@@ -10,7 +10,55 @@
 {
     "nom" : "Vody",
     "sante_mentale" : 0,
+    "points_de_vie": -5,
+    "connaissance": 0,
+    "augmenter_multiplicateur_connaissances" : 0,
+    "multiplicateur_de_multiplicateur_de_connaissances" : 1.2
+},
+{
+    "nom" : "Syllabus MATH-H1003 - Algèbre linéaire et géométrie",
+    "sante_mentale" : -50,
     "points_de_vie": 0,
+    "connaissance": 35,
+    "augmenter_multiplicateur_connaissances" : 0,
+    "multiplicateur_de_multiplicateur_de_connaissances" : 1
+},
+{
+    "nom" : "Les synthèses de ta pote la folle",
+    "sante_mentale" : 0,
+    "points_de_vie": 0,
+    "connaissance": 15,
+    "augmenter_multiplicateur_connaissances" : 0,
+    "multiplicateur_de_multiplicateur_de_connaissances" : 1
+},
+{
+    "nom" : "Puff 9k bien brillante",
+    "sante_mentale" : 15,
+    "points_de_vie": -10,
+    "connaissance": 0,
+    "augmenter_multiplicateur_connaissances" : 0.05,
+    "multiplicateur_de_multiplicateur_de_connaissances" : 1
+},
+{
+    "nom" : "Kit de soin tah Fortnite",
+    "sante_mentale" : 0,
+    "points_de_vie": 30,
+    "connaissance": 0,
+    "augmenter_multiplicateur_connaissances" : 0,
+    "multiplicateur_de_multiplicateur_de_connaissances" : 1
+},
+{
+    "nom" : "CHAT GPT Premium",
+    "sante_mentale" : 0,
+    "points_de_vie": 0,
+    "connaissance": 0,
+    "augmenter_multiplicateur_connaissances" : 0.5,
+    "multiplicateur_de_multiplicateur_de_connaissances" : 1
+},
+{
+    "nom" : "Le Tupperware que Mamie t'a fait ce week-end",
+    "sante_mentale" : 5,
+    "points_de_vie": 15,
     "connaissance": 0,
     "augmenter_multiplicateur_connaissances" : 0,
     "multiplicateur_de_multiplicateur_de_connaissances" : 1

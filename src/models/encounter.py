@@ -38,17 +38,6 @@ def autreschoix(SM_insuffisante):
     return liste_cles_dico
 
 
-
-
-
-    
-    
-    
-    
-
-
-
-
 def action_choisie(liste_choix): #il faut donner à la fonction l'input de l'utilisateur et la liste des choix possibles (soit les choix de base soit les autres choix)
     choix_utilisateur =0
     while choix_utilisateur not in [1,2,3]:
@@ -81,16 +70,15 @@ def trois_choix_recompense():
     "points_de_vie": 5,
     "connaissance": 0,
     "augmenter_multiplicateur_connaissances" : 0,
-    "multiplicateur_de_multiplicateur_de_connaissances" : 1,
-    "nb_tours_d'application" : 0
+    "multiplicateur_de_multiplicateur_de_connaissances" : 1
+    
 }
     augmenter_multiplicateur =  {
     "sante_mentale" : 0,
     "points_de_vie": 0,
     "connaissance": 0,
-    "augmenter_multiplicateur_connaissances" : 0.1,
-    "multiplicateur_de_multiplicateur_de_connaissances" : 1,
-    "nb_tours_d'application" : 0
+    "augmenter_multiplicateur_connaissances" : 0.3,
+    "multiplicateur_de_multiplicateur_de_connaissances" : 1
 }
 
     
@@ -125,21 +113,26 @@ def choix_joueur_recompense(dico_reco):
 
             
 
-def choix_joueur_récompense_inventaire (inventaire_joueur, choix_objet_inventaire = True) : 
+def choix_joueur_objet_inventaire (inventaire_joueur) : 
     liste_inventaire = list(inventaire_joueur.keys())
     print (liste_inventaire)
     if liste_inventaire==[]:
         print ('Votre inventaire est vide, aucune option possible')
+        return None
     while True :
-        choix_joueur_recompense = input ("Veuillez choisir un objet que vous souhaitez utiliser :")
-        try:
-            choix_joueur_recompense=int(choix_joueur_recompense)
-            if choix_joueur_recompense in [1, len(liste_inventaire)] :
-                nom_objet_choisi=liste_inventaire[choix_joueur_recompense-1]
-                print (f'Vous avez choisi :{nom_objet_choisi}' )
-                effet_objet_choisi=inventaire_joueur.pop(nom_objet_choisi)
-                return (effet_objet_choisi, nom_objet_choisi)
-            else : 
-                print (f'Veuillez choisir un entier entre 1 et {len(liste_inventaire)}')
-        except : 
-            print (f'Veuillez choisir un entier entre 1 et {len(liste_inventaire)}')
+        choix_joueur_recompense = input ("Veuillez choisir un objet que vous souhaitez utiliser : (r pour ne rien prendre)")
+        if choix_joueur_recompense.lower() == 'r':
+            print ("Vous avez choisi de ne rien utiliser pour cette épreuve.")
+            return None
+        else : 
+            try:
+                choix_joueur_recompense=int(choix_joueur_recompense)
+                if choix_joueur_recompense in [1, len(liste_inventaire)] :
+                    nom_objet_choisi=liste_inventaire[choix_joueur_recompense-1]
+                    print (f'Vous avez choisi :{nom_objet_choisi}' )
+                    effet_objet_choisi=inventaire_joueur.pop(nom_objet_choisi)
+                    return (effet_objet_choisi, nom_objet_choisi)
+                else : 
+                    print (f'Veuillez choisir un entier entre 1 et {len(liste_inventaire)} ou r pour ne rien prendre')
+            except : 
+                print (f'Veuillez choisir un entier entre 1 et {len(liste_inventaire)} ou r pour ne rien prendre')

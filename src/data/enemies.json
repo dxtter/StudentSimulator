@@ -1,7 +1,7 @@
 [
 {
     "nom" : "Examen",
-    "difficulte": 8,
+    "difficulte": 3,
     "punitivite" : -10,
     "sante_mentale" :  -10
     
@@ -9,29 +9,35 @@
 
 {
     "nom": "Devoir",
-    "difficulte" : 3,
-    "punitivite" : -5,
+    "difficulte" : 0.5,
+    "punitivite" : -7,
     "sante_mentale" : -5
 },
 
 {
     "nom" : "Laboratoire",
-    "difficulte": 6,
+    "difficulte": 1,
     "punitivite" : -8,
     "sante_mentale" : -8
 },
 
 {
-    "nom" : "Projet",
-    "difficulte": 9,
+    "nom" : "Reunion projet",
+    "difficulte": 2.5,
     "punitivite" : -20,
     "sante_mentale" : -20
 },
 
 {
     "nom" : "Présentation orale",
-    "difficulte": 10,
+    "difficulte": 3.5,
     "punitivite" : -30,
     "sante_mentale" : -30
-}   
+},
+{
+    "nom" : "Tu t'es fait choisir en TP de Méca",
+    "difficulte": 2,
+    "punitivite" : -15,
+    "sante_mentale" : -15
+}
 ]

@@ -38,6 +38,16 @@
     "nom" : "Faire du sport",
     "sante_mentale" : 10, 
     "connaissance" : 5
+},
+{
+    "nom" : "Jouer à JustDance",
+    "sante_mentale" : 12, 
+    "connaissance" : 0
+},
+{
+    "nom" : "Fouiller dans la sacoche du prof",
+    "sante_mentale" : -5, 
+    "connaissance" : 20
 }
 
 ]
