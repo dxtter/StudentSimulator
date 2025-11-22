@@ -19,3 +19,15 @@ def affichage_apres_epreuve(reussite):
         print("bien joué ! Vous vous en êtes tirés pour cette fois mais l'année n'est pas encore finie Mouhahahaha")
     elif not reussite:
         print("Vous n'êtes qu'un bon à rien, revenez plus fort pour une prochaine épreuve, mais surveillez votre barre de vie SKIBIDI")
+
+
+def afficher_recompenses_au_joueur(dico_reco):
+    print("Voici les récompenses parmi lesquelles vous pouvez choisir :")
+    for i, cle in enumerate(dico_reco.keys(), start=1):
+        print(f"{i}) {cle}")
+
+def afficher_inventaire_du_joueur(inventaire_joueur): #donner un dico d'inventaire
+    print("Voici votre inventaire actuel :")
+    for cle in inventaire_joueur.keys():
+        print(f"- {cle}")
+    

@@ -86,7 +86,7 @@ def trois_choix_recompense():
 }
     augmenter_multiplicateur =  {
     "sante_mentale" : 0,
-    "points_de_vie": 5,
+    "points_de_vie": 0,
     "connaissance": 0,
     "augmenter_multiplicateur_connaissances" : 0.1,
     "multiplicateur_de_multiplicateur_de_connaissances" : 1,
@@ -104,11 +104,43 @@ def trois_choix_recompense():
     
     dico_recompenses[nom_objet] = items[indice_element_item]
 
-    return dico_recompenses
+    return dico_recompenses #renvoie un dictionnaire avec 3 choix de récompenses possibles (2 de fixes et 1 aléatoire parmi items.json)
     
-    
-    
+def choix_joueur_recompense(dico_reco): 
+    while True:
+        choix_utilisateur = input("Entrez le numéro de votre choix : ")
+        if choix_utilisateur in ['1', '2', '3']:
+            liste_cles = list(dico_reco.keys())
+            nom_recompense_choisie = liste_cles[int(choix_utilisateur)-1]
+            print(f"Vous avez choisi : {nom_recompense_choisie}")
             
+            return dico_reco.pop(nom_recompense_choisie), nom_recompense_choisie #renvoie le dico avec les effets de la récompense choisie et son nom 
+        
+        else:
+            print("Choix invalide. Veuillez choixir un numéro entre 1 et 3.")
+            
+
+    
+def appliquer_choix_recompense(dico_recompense_choisie, dico_stats_joueur):
+
+    
+
+    for cle in dico_recompense_choisie:
+        if cle == "sante_mentale":
+            dico_stats_joueur["vie sociale"] += dico_recompense_choisie[cle]
+            dico_stats_joueur["vie sociale"] = max(0, min(100, dico_stats_joueur["vie sociale"]))
+        elif cle == "points_de_vie":
+            dico_stats_joueur["points de vie"] += dico_recompense_choisie[cle]
+            dico_stats_joueur["points de vie"] = max(0, min(100, dico_stats_joueur["points de vie"]))
+        elif cle == "connaissance":
+            dico_stats_joueur["points de connaissances"] += dico_recompense_choisie[cle]
+            dico_stats_joueur["points de connaissances"] = max(0, min(100, dico_stats_joueur["points de connaissances"]))
+        elif cle == "augmenter_multiplicateur_connaissances":
+            dico_stats_joueur["multiplicateur de connaissances"] += dico_recompense_choisie[cle]
+        elif cle == "multiplicateur_de_multiplicateur_de_connaissances":
+            dico_stats_joueur["multiplicateur de connaissances"] *= dico_recompense_choisie[cle]
+
+    
 
             
 
