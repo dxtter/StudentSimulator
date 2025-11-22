@@ -4,8 +4,7 @@
     "points_de_vie": 0,
     "connaissance": 0,
     "augmenter_multiplicateur_connaissances" : 0,
-    "multiplicateur_de_multiplicateur_de_connaissances" : 2,
-    "nb_tours_d'application" : 5
+    "multiplicateur_de_multiplicateur_de_connaissances" : 1.1
 },
 
 {
@@ -14,8 +13,7 @@
     "points_de_vie": 0,
     "connaissance": 0,
     "augmenter_multiplicateur_connaissances" : 0,
-    "multiplicateur_de_multiplicateur_de_connaissances" : 1,
-    "nb_tours_d'application" : 0
+    "multiplicateur_de_multiplicateur_de_connaissances" : 1
 }
 
 ]

@@ -31,8 +31,8 @@ def initialiser_rng(seed_entree=None):
     print(f"[DEBUG] Système RNG initialisé avec la graine : {GRAINE_ACTUELLE}")
     return GRAINE_ACTUELLE
 
-def calcul_chance_succes_epreuve(connaissance, difficulte ): #donner un int connaissance à prendre sur la stat_player et la difficulté du boss à prendre dans dans le dico du boss choisi aléatoire)
-    proba_reussite_epreuve = (connaissance/100)**(difficulte/3)
+def calcul_chance_succes_epreuve(connaissance, difficulte, multiplicateur_global_diff): #donner un int connaissance à prendre sur la stat_player et la difficulté du boss à prendre dans dans le dico du boss choisi aléatoire)
+    proba_reussite_epreuve = (connaissance/100)**(difficulte/3*multiplicateur_global_diff)
     return proba_reussite_epreuve
 
 def reussite_ou_echec(proba_reussite):
