@@ -48,51 +48,54 @@ Votre périple commence maintenant. Votre Santé Mentale est votre ressource la 
     seed_utilisee = initialiser_rng(choix_seed)
         
     print(f"Partie lancée ! Seed : {seed_utilisee}")
-    print("(Notez ce code pour rejouer exactement la même partie !)")
+    print("(Notez ce code pour rejouer exactement la même partie !)\n")
         
         # ... Le reste du jeu commence ici ...
         # ... Création du joueur ...
     compteur_de_tours_globaux = 0 
     multiplicateur_global_difficulte = 0.95  #multiplicateur global de difficulté qui augmente légèrement à chaque tour global
     inventaire_joueur = {}  #dictionnaire de l'inventaire du joueur, vide au début
+    copie_ancienne_stat_player = copy.deepcopy(stat_player)  #copie des stats du joueur pour afficher les changements de stats après chaque modification
         # ... Boucle de jeu ...
     while stat_player["points de vie"] > 0 and compteur_de_tours_globaux <=100:  #boucle principale tant que la vie du joueur est supérieure à 0,jeu continue
         compteur_de_tours_globaux += 1
         multiplicateur_global_difficulte += 0.05  #augmente légèrement la difficulté globale à chaque tour
         stat_player["points de connaissances"] =0 #à chaque tour, le joueur gagne des points de connaissance en fonction de son multiplicateur
         ennemi = choisit_un_ennemi_random() #choisir un ennemi aléatoire (son nom)
-        print(f"Vous allez affronter : {ennemi} après les 5 tours de préparation ! Bonne chance !")
+        print(f"\nVous allez affronter : {ennemi} après les 5 tours de préparation ! Bonne chance !")
         with open("data/enemies.json", encoding="utf-8") as f: #ouvre le fichier json avec tous les ennemis
             ennemis = json.load(f)
             for e in ennemis:
                 if e["nom"] == ennemi:
                     ennemi = e #trouve le dico de l'ennemi choisi !!! ennemi devinent un dictionnaire et non une chaine de caractere
                     break
-        print(f"Ses difficulté est de : {ennemi['difficulte']*multiplicateur_global_difficulte}") #affiche la difficulté de l'ennemi multipliée par le multiplicateur global de difficulté
+        print(f"Sa difficulté est de : {ennemi['difficulte']*multiplicateur_global_difficulte} \n ") #affiche la difficulté de l'ennemi multipliée par le multiplicateur global de difficulté
         bool_consult_inventaire = inventaire_ou_non()  #demande au joueur s'il veut consulter son inventaire
         if bool_consult_inventaire:
             afficher_inventaire_du_joueur(inventaire_joueur)  #affiche l'inventaire du joueur s'il le souhaite
             choix_objet_inventaire = choix_joueur_objet_inventaire(inventaire_joueur)
             if choix_objet_inventaire is not None:
+                copie_ancienne_stat_player = copy.deepcopy(stat_player)  #met à jour la copie des stats du joueur avant modification
                 stat_player= appliquer_choix_recompense(choix_objet_inventaire[0], stat_player)  #applique les effets de l'objet choisi sur les stats du joueur [0] car c'est les effets qui sont à l'index 0 du tuple renvoyé
                 print(f"Vous avez utilisé {choix_objet_inventaire[1]} avant l'épreuve.")  #[1] car c'est le nom de l'objet qui est à l'index 1 du tuple renvoyé
                 #ne pas oublier de faire une fonction qui affiche les changments de stat
-                afficher_stat_joueur(stat_player)  #affiche les stats du joueur après l'utilisation de l'objet 
+                afficher_stat_joueur(stat_player, copie_ancienne_stat_player)  #affiche les stats du joueur après l'utilisation de l'objet 
 
 
 
         for tour_preparation in range(1,7): #modifié pour faire 5 tours de préparation pour l'instant + 1 tour combat de boss (tour 6)
             sante_mentale_insuffisante = verif_sante_mentale_insuffisante(stat_player["vie sociale"]) #vérifie à chaque tour de préparation si la santé mentale du joueur est insuffisante (True ou False)
-            afficher_stat_joueur(stat_player)  #afficher les stats du joueur
+            afficher_stat_joueur(stat_player, copie_ancienne_stat_player)  #afficher les stats du joueur
             
             if tour_preparation == 6: #tour du combat de boss
                 print(f"{ROUGE}----- TOUR DE COMBAT DE BOSS -----{RESET}") #print tour de combat de boss si c'est le tour 6
-                print("Tic Tac... L'heure a sonné... La deadline est terminée.. J'espère que vous êtes bien préparé(e)")
+                print("Tic Tac... L'heure a sonné... La deadline est terminée.. J'espère que vous êtes bien préparé(e)\n")
                 
                 proba_reussite = calcul_chance_succes_epreuve(stat_player["points de connaissances"], ennemi["difficulte"], multiplicateur_global_difficulte) #calcule la proba de reussite de l'epreuve en fonction de la connaissance du joueur et de la difficulté de l'ennemi, la multipli global est déjà pris en compte
                 print(f"[DEBUG] Probabilité de réussite de l'épreuve : {proba_reussite}")
                 reussite = reussite_ou_echec(proba_reussite) #détermine si le joueur réussit ou échoue l'épreuve en fonction de la proba calculée avec le module random (seedé ou pas)
                 affichage_apres_epreuve(reussite) #affiche un message en fonction de la réussite ou de l'échec
+                copie_ancienne_stat_player = copy.deepcopy(stat_player)  #met à jour la copie des stats du joueur avant modification
                 stat_player= modif_stat_joueur(stat_player, ennemi["nom"], "enemies",multiplicateur_global_difficulte , reussite) #modifie les stats du joueur en fonction de la réussite ou de l'échec de l'épreuve contre l'ennemi
                 
                 print(f"[DEBUG]{stat_player}")
@@ -101,6 +104,7 @@ Votre périple commence maintenant. Votre Santé Mentale est votre ressource la 
                     afficher_recompenses_au_joueur(dico_reco) #affiche les choix de récompenses au joueur
                     stat_recompense_choisie, nom_recompense_choisie = choix_joueur_recompense(dico_reco) #demande au joueur de choisir une récompense et renvoie le dico des effets de la récompense choisie et son nom
                     print(f"[DEBUG] Récompense choisie : {nom_recompense_choisie} avec effets {stat_recompense_choisie}")
+                    copie_ancienne_stat_player = copy.deepcopy(stat_player)  #met à jour la copie des stats du joueur avant modification
                     if nom_recompense_choisie not in ["gagner un peu de vie", "augmenter le multiplicateur de connaissances globales"]:
                         inventaire_joueur[nom_recompense_choisie] = stat_recompense_choisie #ajoute l'objet choisi dans l'inventaire du joueur s'il ne s'agit pas d'une des 2 récompenses fixes
                         print(f"Vous avez ajouté {nom_recompense_choisie} à votre inventaire.")
@@ -145,6 +149,7 @@ Votre périple commence maintenant. Votre Santé Mentale est votre ressource la 
                             choix_valide_final = True    
 
                             #ici modfication de la stat de la stat du joueur en fonction de l'action choisie
+            copie_ancienne_stat_player = copy.deepcopy(stat_player)  #met à jour la copie des stats du joueur avant modification
             stat_player = modif_stat_joueur(stat_player,v_action_choisie,"skills",multiplicateur_global_difficulte) #modifie les stats du joueur en fonction de l'action choisie et du multiplicateur de difficulté globale
                         
     

@@ -16,11 +16,11 @@ def afficher_autreschoix(choixpossibles): #fonction servant à afficher les autr
     print (f"1) {choixpossibles[0]}\n2) {choixpossibles[1]}\n3) {choixpossibles[2]}")
 
 
-def afficher_stat_joueur(stat_joueur): #fonction servant à afficher les barres (stats principales du joueur)
+"""def afficher_stat_joueur(stat_joueur): #fonction servant à afficher les barres (stats principales du joueur)
 
     print("\nStatistiques actuelles de l'étudiant(e):\n")
     print (f"{VERT_VIF}Points de vie :{stat_joueur['points de vie']}/10{RESET}\n\n{JAUNE}Vie sociale :{stat_joueur['vie sociale']}/100{RESET}\n\n{BLEU_VIF}Points de connaissances :{stat_joueur['points de connaissances']}/100{RESET}\n\n{MAUVE}Multiplicateur de connaissances :{stat_joueur['multiplicateur de connaissances']}{RESET}\n")
-    #Daniel : j'ai ajouté le multiplicateur de connaissances 
+    #Daniel : j'ai ajouté le multiplicateur de connaissances """
 
 def affichage_apres_epreuve(reussite):
     if reussite :
@@ -48,3 +48,42 @@ def inventaire_ou_non(): #donnner un input de l'utilisateur
         return True
     else :
         return False
+    
+
+
+def afficher_stat_joueur(stat_joueur, stat_precedente=None):
+
+
+    print("\nStatistiques actuelles de l'étudiant(e):\n")
+
+    # Liste des clés à afficher avec leurs couleurs et max values
+    # Format: (Clé, Couleur, MaxValue)
+    configs = [
+        ("points de vie", VERT_VIF, 100),
+        ("vie sociale", JAUNE,100),
+        ("points de connaissances", BLEU_VIF, 100),
+        ("multiplicateur de connaissances", MAUVE, None) # Pas de max pour le multi
+    ]
+
+    for cle, couleur, valeur_max in configs:
+        valeur_actuelle = stat_joueur[cle]
+        
+        # Calcul du texte de différence entre ancienne stat et nouvelle
+        texte_diff = ""
+        if stat_precedente is not None and cle in stat_precedente:
+            diff = valeur_actuelle - stat_precedente[cle]
+            
+            # On arrondit les floats pour éviter les affichages genre (+0.3000004)
+            if isinstance(diff, float):
+                diff = round(diff, 2)
+
+            if diff > 0:
+                texte_diff = f" {VERT}(+{diff}){RESET}"
+            elif diff < 0:
+                texte_diff = f" {ROUGE}({diff}){RESET}"
+        
+        # Gestion de l'affichage "/Max"
+        texte_max = f"/{valeur_max}" if valeur_max is not None else ""
+        
+        # Affichage final de la ligne
+        print(f"{couleur}{cle} : {valeur_actuelle}{texte_max}{RESET}{texte_diff}\n")
