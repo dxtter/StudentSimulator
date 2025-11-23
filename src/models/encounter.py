@@ -9,34 +9,35 @@ def choixdispo ():  #fonction renvoyant une liste des choix de base de l'utilisa
 
 
 
-def autreschoix(SM_insuffisante): 
+def autreschoix(SM_insuffisante): #fonction qui renvoie une liste de dictionnaires nommés par rapport aux actions qu'ils représentent et qui contiennent des clés et valeurs avec les effets des actions 
     with open ("data/skills.json", encoding= "utf-8") as f :
         liste_skills_json = json.load(f)
         skills_json =deepcopy(liste_skills_json)
     nouveaux_skills={}
-    liste_interdits = ["Dormir","Etudier"]
-    while len(nouveaux_skills) <= 1:
-        indice_element_json = randint(0, len(skills_json)-1)
+    liste_interdits = ["Dormir","Etudier"] #liste pour savoir quelles action on a le droit d'utiliser ou non (dormir et etudier sont interdits de base, celles qu'on a déjà pris ne peuvent pas être encore prises)
+    while len(nouveaux_skills) <= 1: #2 premières actions aléatoires
+        indice_element_json = randint(0, len(skills_json)-1) 
 
         cle_nom=liste_skills_json[indice_element_json].get("nom") #renvoie la valeur de la cle nom 
         if cle_nom not in liste_interdits :
-            liste_interdits.append(cle_nom)
-            skills_json[indice_element_json].pop("nom")
+            liste_interdits.append(cle_nom) #ajout à la liste d'interdits l'action choisie
+            skills_json[indice_element_json].pop("nom") #suppression de la ligne 'nom' : ... du dico, comme ça on garde que les effets  
             nouveaux_skills[cle_nom]=skills_json[indice_element_json]
     
-    while len(nouveaux_skills) <= 2:
+    while len(nouveaux_skills) <= 2: #choisit un troisième élément parmi la liste de tous les choix
+        #cette fois-ci on tient compte de l'argument fourni qui est un bool(True si la SM est insuffisante) car si SM insuffisante, alors le 3ème choix doit obligatoirement être faisable pour ne pas bloquer le joueur dans ses choix(SM >0)
         indice_element_json = randint(0, len(skills_json)-1)
         cle_nom=liste_skills_json[indice_element_json].get("nom") #renvoie la valeur de la cle nom
         if SM_insuffisante:
             
-            if cle_nom not in liste_interdits and skills_json[indice_element_json]["sante_mentale"] >0:
+            if cle_nom not in liste_interdits and skills_json[indice_element_json]["sante_mentale"] >0: #condition pour l'ajouter 
                 nouveaux_skills[cle_nom] = skills_json[indice_element_json]
-        else :
+        else : #si SM pas insuffisante alors on prend juste un dernier element random 
             if cle_nom not in liste_interdits:
                 skills_json[indice_element_json].pop("nom")
                 nouveaux_skills[cle_nom]= skills_json[indice_element_json]
     liste_cles_dico = list(nouveaux_skills.keys())
-    return liste_cles_dico
+    return liste_cles_dico #renvoie une liste de noms avec les 3 actions quasi aléatoires
 
 
 def action_choisie(liste_choix): #il faut donner à la fonction l'input de l'utilisateur et la liste des choix possibles (soit les choix de base soit les autres choix)
