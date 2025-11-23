@@ -10,7 +10,7 @@
 {
     "nom" : "Vody",
     "sante_mentale" : 0,
-    "points_de_vie": -5,
+    "points_de_vie": -20,
     "connaissance": 0,
     "augmenter_multiplicateur_connaissances" : 0,
     "multiplicateur_de_multiplicateur_de_connaissances" : 1.2
