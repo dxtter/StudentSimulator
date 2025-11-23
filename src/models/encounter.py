@@ -7,8 +7,6 @@ def choixdispo ():  #fonction renvoyant une liste des choix de base de l'utilisa
     return ['Dormir','Etudier','Autres']
 
 
-
-
 def autreschoix(SM_insuffisante): 
     with open ("data/skills.json", encoding= "utf-8") as f :
         liste_skills_json = json.load(f)

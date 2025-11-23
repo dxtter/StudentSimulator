@@ -56,7 +56,7 @@ Votre périple commence maintenant. Que le décret paysage soit avec vous ! """)
     inventaire_joueur = {}  #dictionnaire de l'inventaire du joueur, vide au début
     copie_ancienne_stat_player = copy.deepcopy(stat_player)  #copie des stats du joueur pour afficher les changements de stats après chaque modification
        
-    while stat_player["points de vie"] > 0 and compteur_de_tours_globaux <=100:  #boucle principale tant que la vie du joueur est supérieure à 0, le jeu continue
+    while stat_player["points de vie"] > 0 :  #boucle principale tant que la vie du joueur est supérieure à 0, le jeu continue
         compteur_de_tours_globaux += 1
         print(f"{BOLD}Epreuve numéro {compteur_de_tours_globaux}\n{RESET}")
         multiplicateur_global_difficulte += 0.075  #augmente légèrement la difficulté globale à chaque tour
@@ -78,7 +78,7 @@ Votre périple commence maintenant. Que le décret paysage soit avec vous ! """)
                 copie_ancienne_stat_player = copy.deepcopy(stat_player)  #met à jour la copie des stats du joueur avant modification
                 stat_player= appliquer_choix_recompense(choix_objet_inventaire[0], stat_player)  #applique les effets de l'objet choisi sur les stats du joueur [0] car c'est les effets qui sont à l'index 0 du tuple renvoyé
                 print(f"Vous avez utilisé {choix_objet_inventaire[1]} avant l'épreuve.")  #[1] car c'est le nom de l'objet qui est à l'index 1 du tuple renvoyé
-                afficher_stat_joueur(stat_player, copie_ancienne_stat_player)  #affiche les stats du joueur après l'utilisation de l'objet 
+             
 
 
 
