@@ -13,7 +13,7 @@
 
 {
     "nom" : "Aller aux guidances",
-    "sante_mentale" : -1, 
+    "sante_mentale" : -5, 
     "connaissance" : 15
 },
 
@@ -25,7 +25,7 @@
 
 {
     "nom" : "Aller à la bibliothèque",
-    "sante_mentale" : -12, 
+    "sante_mentale" : -16, 
     "connaissance" : 20
 },
 {
@@ -46,8 +46,8 @@
 },
 {
     "nom" : "Fouiller dans la sacoche du prof",
-    "sante_mentale" : -5, 
-    "connaissance" : 20
+    "sante_mentale" : -15, 
+    "connaissance" : 18
 }
 
 ]

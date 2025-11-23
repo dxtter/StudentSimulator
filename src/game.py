@@ -22,6 +22,7 @@ def main():
     RESET = "\033[0m"
     VERT= "\033[32m"
     ROUGE = "\033[31m"
+    JAUNE = "\033[33m"
     print(f"""{BOLD}
     #######################################################
                     BIENVENUE À L'UNIVERSITÉ
@@ -38,28 +39,27 @@ Chaque épreuve sera précédée d'une session de 5 tours de préparation. Lors 
 
 - Tentez d'{BOLD}Autres{RESET} actions risquées pour des effets inattendus !
 
+ATTENTION : Gardez un oeil sur votre santé mentale. Si elle chute trop bas, certaines actions vous seront interdites jusqu'à ce que vous la restauriez.
 
-Votre périple commence maintenant. Votre Santé Mentale est votre ressource la plus précieuse, si vous passez en dessous de la barre des 20, vous ne pourrez plus acquérir de la connaissance. Gérez la donc bien !""")
+Votre périple commence maintenant. Que le décret paysage soit avec vous ! """)
         
-        # 1. Demander au joueur s'il a une seed (facultatif)
-    choix_seed = input("Entrez une graine (ou Entrée pour aléatoire) : ")
+    
+    choix_seed = input("Entrez une graine (ou Entrée pour aléatoire) : ") #Demande au joueur s'il veut une seed (pas obligé)
         
-        # 2. Initialiser le destin
-    seed_utilisee = initialiser_rng(choix_seed)
+    seed_utilisee = initialiser_rng(choix_seed) #initialise la seed
         
-    print(f"Partie lancée ! Seed : {seed_utilisee}")
-    print("(Notez ce code pour rejouer exactement la même partie !)\n")
+    print(f"{JAUNE}\nPartie lancée ! Seed : {seed_utilisee}")
+    print(f"(Notez ce code pour rejouer exactement la même partie !)\n{RESET}")
         
-        # ... Le reste du jeu commence ici ...
-        # ... Création du joueur ...
     compteur_de_tours_globaux = 0 
-    multiplicateur_global_difficulte = 0.95  #multiplicateur global de difficulté qui augmente légèrement à chaque tour global
+    multiplicateur_global_difficulte = 0.925  #multiplicateur global de difficulté qui augmente légèrement à chaque tour global
     inventaire_joueur = {}  #dictionnaire de l'inventaire du joueur, vide au début
     copie_ancienne_stat_player = copy.deepcopy(stat_player)  #copie des stats du joueur pour afficher les changements de stats après chaque modification
-        # ... Boucle de jeu ...
-    while stat_player["points de vie"] > 0 and compteur_de_tours_globaux <=100:  #boucle principale tant que la vie du joueur est supérieure à 0,jeu continue
+       
+    while stat_player["points de vie"] > 0 and compteur_de_tours_globaux <=100:  #boucle principale tant que la vie du joueur est supérieure à 0, le jeu continue
         compteur_de_tours_globaux += 1
-        multiplicateur_global_difficulte += 0.05  #augmente légèrement la difficulté globale à chaque tour
+        print(f"{BOLD}Epreuve numéro {compteur_de_tours_globaux}\n{RESET}")
+        multiplicateur_global_difficulte += 0.075  #augmente légèrement la difficulté globale à chaque tour
         stat_player["points de connaissances"] =0 #à chaque tour, le joueur gagne des points de connaissance en fonction de son multiplicateur
         ennemi = choisit_un_ennemi_random() #choisir un ennemi aléatoire (son nom)
         print(f"\nVous allez affronter : {ennemi} après les 5 tours de préparation ! Bonne chance !")
@@ -69,7 +69,7 @@ Votre périple commence maintenant. Votre Santé Mentale est votre ressource la 
                 if e["nom"] == ennemi:
                     ennemi = e #trouve le dico de l'ennemi choisi !!! ennemi devinent un dictionnaire et non une chaine de caractere
                     break
-        print(f"Sa difficulté est de : {ennemi['difficulte']*multiplicateur_global_difficulte} \n ") #affiche la difficulté de l'ennemi multipliée par le multiplicateur global de difficulté
+        print(f"Sa difficulté est de : {round(ennemi['difficulte']*multiplicateur_global_difficulte, 2)} \n ") #affiche la difficulté de l'ennemi multipliée par le multiplicateur global de difficulté tout ça arrondi à 2 décimales
         bool_consult_inventaire = inventaire_ou_non()  #demande au joueur s'il veut consulter son inventaire
         if bool_consult_inventaire:
             afficher_inventaire_du_joueur(inventaire_joueur)  #affiche l'inventaire du joueur s'il le souhaite
@@ -78,7 +78,6 @@ Votre périple commence maintenant. Votre Santé Mentale est votre ressource la 
                 copie_ancienne_stat_player = copy.deepcopy(stat_player)  #met à jour la copie des stats du joueur avant modification
                 stat_player= appliquer_choix_recompense(choix_objet_inventaire[0], stat_player)  #applique les effets de l'objet choisi sur les stats du joueur [0] car c'est les effets qui sont à l'index 0 du tuple renvoyé
                 print(f"Vous avez utilisé {choix_objet_inventaire[1]} avant l'épreuve.")  #[1] car c'est le nom de l'objet qui est à l'index 1 du tuple renvoyé
-                #ne pas oublier de faire une fonction qui affiche les changments de stat
                 afficher_stat_joueur(stat_player, copie_ancienne_stat_player)  #affiche les stats du joueur après l'utilisation de l'objet 
 
 
@@ -92,27 +91,26 @@ Votre périple commence maintenant. Votre Santé Mentale est votre ressource la 
                 print("Tic Tac... L'heure a sonné... La deadline est terminée.. J'espère que vous êtes bien préparé(e)\n")
                 
                 proba_reussite = calcul_chance_succes_epreuve(stat_player["points de connaissances"], ennemi["difficulte"], multiplicateur_global_difficulte) #calcule la proba de reussite de l'epreuve en fonction de la connaissance du joueur et de la difficulté de l'ennemi, la multipli global est déjà pris en compte
-                print(f"[DEBUG] Probabilité de réussite de l'épreuve : {proba_reussite}")
+                print(f"Probabilité de réussite de l'épreuve : {round(proba_reussite*100,2)}%") #affiche la proba de réussite en pourcentage arrondie à 2 décimales
                 reussite = reussite_ou_echec(proba_reussite) #détermine si le joueur réussit ou échoue l'épreuve en fonction de la proba calculée avec le module random (seedé ou pas)
-                affichage_apres_epreuve(reussite) #affiche un message en fonction de la réussite ou de l'échec
+                affichage_apres_epreuve(reussite,ennemi["nom"]) #affiche un message en fonction de la réussite ou de l'échec
                 copie_ancienne_stat_player = copy.deepcopy(stat_player)  #met à jour la copie des stats du joueur avant modification
                 stat_player= modif_stat_joueur(stat_player, ennemi["nom"], "enemies",multiplicateur_global_difficulte , reussite) #modifie les stats du joueur en fonction de la réussite ou de l'échec de l'épreuve contre l'ennemi
                 
-                print(f"[DEBUG]{stat_player}")
-                if reussite:
+                afficher_stat_joueur(stat_player, copie_ancienne_stat_player)  #affiche les stats du joueur après l'épreuve
+                if reussite: #si on réussit le combat
                     dico_reco = trois_choix_recompense() #génère un dictionnaire avec 3 choix de récompenses possibles
                     afficher_recompenses_au_joueur(dico_reco) #affiche les choix de récompenses au joueur
                     stat_recompense_choisie, nom_recompense_choisie = choix_joueur_recompense(dico_reco) #demande au joueur de choisir une récompense et renvoie le dico des effets de la récompense choisie et son nom
-                    print(f"[DEBUG] Récompense choisie : {nom_recompense_choisie} avec effets {stat_recompense_choisie}")
                     copie_ancienne_stat_player = copy.deepcopy(stat_player)  #met à jour la copie des stats du joueur avant modification
                     if nom_recompense_choisie not in ["gagner un peu de vie", "augmenter le multiplicateur de connaissances globales"]:
                         inventaire_joueur[nom_recompense_choisie] = stat_recompense_choisie #ajoute l'objet choisi dans l'inventaire du joueur s'il ne s'agit pas d'une des 2 récompenses fixes
                         print(f"Vous avez ajouté {nom_recompense_choisie} à votre inventaire.")
                     else : 
                         print(f"Vous avez choisi la récompense : {nom_recompense_choisie}.")
+                        copie_ancienne_stat_player = copy.deepcopy(stat_player)  
                         stat_player= appliquer_choix_recompense(stat_recompense_choisie, stat_player)#applique les effets de la récompense choisie sur les stats du joueur
-                        print(f"[DEBUG] Statistiques du joueur après application de la récompense : {stat_player}")
-                    afficher_inventaire_du_joueur(inventaire_joueur) #affiche l'inventaire du joueur après l'ajout éventuel d'un objet
+    
 
                 break  #sortir de la boucle de préparation pour revenir à la boucle principale car fin des tours de préparation
 
@@ -151,6 +149,12 @@ Votre périple commence maintenant. Votre Santé Mentale est votre ressource la 
                             #ici modfication de la stat de la stat du joueur en fonction de l'action choisie
             copie_ancienne_stat_player = copy.deepcopy(stat_player)  #met à jour la copie des stats du joueur avant modification
             stat_player = modif_stat_joueur(stat_player,v_action_choisie,"skills",multiplicateur_global_difficulte) #modifie les stats du joueur en fonction de l'action choisie et du multiplicateur de difficulté globale
+
+    print ("\n")
+    print ("Vos statistiques finales sont :")
+    afficher_stat_joueur(stat_player)  #affiche les stats finales du joueur
+    print(f"{ROUGE}GAME OVER ! L'épreuve {ennemi['nom']} vous a asséné le coup fatal.\nVous avez tenu {compteur_de_tours_globaux} tours avant de succomber à la pression universitaire... MOUHAHAHAHA{RESET}")
+    print(f"Merci d'avoir joué ! Votre seed était : {seed_utilisee}, entrez-la au début de la prochaine partie pour rejouer la même aventure.")
                         
     
 

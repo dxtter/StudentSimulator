@@ -1,11 +1,12 @@
 from random import randint
-from models.player import verif_sante_mentale_insuffisante
 from copy import deepcopy
+import json
+
 
 def choixdispo ():  #fonction renvoyant une liste des choix de base de l'utilisateur à chaque tour de préparation
     return ['Dormir','Etudier','Autres']
 
-import json
+
 
 
 def autreschoix(SM_insuffisante): 
@@ -65,7 +66,7 @@ def verif_choix_valide_cas_sante_mentale(choix_utilisateur): #fonction servant �
             
 def trois_choix_recompense():
     
-    gagner_un_peu_de_vie =  {
+    gagner_un_peu_de_vie =  { #choix de base 1 
     "sante_mentale" : 0,
     "points_de_vie": 5,
     "connaissance": 0,
@@ -73,7 +74,7 @@ def trois_choix_recompense():
     "multiplicateur_de_multiplicateur_de_connaissances" : 1
     
 }
-    augmenter_multiplicateur =  {
+    augmenter_multiplicateur =  {  #chox de base 2 
     "sante_mentale" : 0,
     "points_de_vie": 0,
     "connaissance": 0,
@@ -88,7 +89,7 @@ def trois_choix_recompense():
     with open("data/items.json", encoding= "utf_8" ) as f :
         items = json.load(f)
     indice_element_item = randint(0, len(items)-1)
-    nom_objet =items[indice_element_item].pop("nom")
+    nom_objet =items[indice_element_item].pop("nom") #choix aléatoire 3 parmi les objets du fichier json 
     
     dico_recompenses[nom_objet] = items[indice_element_item]
 
@@ -112,27 +113,25 @@ def choix_joueur_recompense(dico_reco):
     
 
             
-
-def choix_joueur_objet_inventaire (inventaire_joueur) : 
-    liste_inventaire = list(inventaire_joueur.keys())
-    print (liste_inventaire)
+#nous avons du faire une fonction nouvelle car un inventaire peut avoir une taille, illimité ( et non 3 comme les autres choix possibles du joueur)
+def choix_joueur_objet_inventaire (inventaire_joueur) : #fct qui permet au joueur de choisir un objet dans son inventaire, il faut donner le dico inventaire
+    liste_inventaire = list(inventaire_joueur.keys()) #transforme le dico en liste pour pouvoir faire le choix avec des nombres
     if liste_inventaire==[]:
-        print ('Votre inventaire est vide, aucune option possible')
         return None
-    while True :
+    while True : #boucle infinie, tant que l'utilisateur n'a pas choisi un choix convenable 
         choix_joueur_recompense = input ("Veuillez choisir un objet que vous souhaitez utiliser : (r pour ne rien prendre)")
-        if choix_joueur_recompense.lower() == 'r':
+        if choix_joueur_recompense.lower() == 'r': #laisse la possibilité de ne rien utiliser, l'invenaire reste intouché 
             print ("Vous avez choisi de ne rien utiliser pour cette épreuve.")
             return None
-        else : 
-            try:
-                choix_joueur_recompense=int(choix_joueur_recompense)
-                if choix_joueur_recompense in [1, len(liste_inventaire)] :
-                    nom_objet_choisi=liste_inventaire[choix_joueur_recompense-1]
+        else : #cas ou le joueur veut utiliser qq chose
+            try: #sert à gérer si le joueur entre une valeur non numérique (impossible à transformer en int)
+                choix_joueur_recompense=int(choix_joueur_recompense) #transforme le str en int 
+                if choix_joueur_recompense in [1, len(liste_inventaire)] : #sert à voir si le joueur choisit bien un objet présent dans son inventaire 
+                    nom_objet_choisi=liste_inventaire[choix_joueur_recompense-1] #-1 car on est dans une liste 
                     print (f'Vous avez choisi :{nom_objet_choisi}' )
-                    effet_objet_choisi=inventaire_joueur.pop(nom_objet_choisi)
+                    effet_objet_choisi=inventaire_joueur.pop(nom_objet_choisi) #suppression de l'objet de l'inventaire + return stat effet objet 
                     return (effet_objet_choisi, nom_objet_choisi)
-                else : 
+                else : #cas ou le joueur choisit un truc out of range 
                     print (f'Veuillez choisir un entier entre 1 et {len(liste_inventaire)} ou r pour ne rien prendre')
-            except : 
+            except : #demande poliment de choisir un int entre 1 et len(inventaire)
                 print (f'Veuillez choisir un entier entre 1 et {len(liste_inventaire)} ou r pour ne rien prendre')

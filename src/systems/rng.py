@@ -1,38 +1,23 @@
 import random
 import time
+graine_actuelle = None # Variable stock la seed actuelle
 
-
-# Variable globale pour stocker la seed actuelle
-# On la stocke pour pouvoir l'afficher au joueur (ex: "Seed de cette partie : 12345")
-GRAINE_ACTUELLE = None
-
-def initialiser_rng(seed_entree=None):
-
-    """
-    Configure le générateur aléatoire.
-    - Si seed_entree est fourni (par le joueur), on l'utilise.
-    - Sinon, on en crée une basée sur l'heure actuelle.
-    """
-    global GRAINE_ACTUELLE # On dit qu'on veut modifier la variable définie plus haut
+def initialiser_rng(seed_entree=None): #configuration du seed aleatoire, si le joueur en fourni une, on prend la sienne, sinon on en cree une en fct de l'heure et de la date
+    global graine_actuelle # On dit qu'on veut modifier la variable définie plus haut
     
-    if seed_entree is not None and seed_entree != "":
-        # Le joueur a donné une seed (ex: "CHIMIE_HARD")
-        # On convertit tout en string pour éviter les bugs
-        GRAINE_ACTUELLE = str(seed_entree)
-    else:
-        # Pas de seed donnée ? On en génère une aléatoire
-        # On utilise l'heure exacte pour être sûr que c'est unique
-        GRAINE_ACTUELLE = str(int(time.time()))
+    if seed_entree is not None and seed_entree != "": # cas ou le joueur donne une seed et le convertir en str pour eviter les bugs
+        
+        graine_actuelle = str(seed_entree)
+    else: #autre cas 
+        graine_actuelle = str(int(time.time())) 
+
+    random.seed(graine_actuelle)
     
-    # C'EST LA LIGNE MAGIQUE
-    # Elle fige le destin de l'aléatoire pour tout le reste du programme
-    random.seed(GRAINE_ACTUELLE)
     
-    print(f"[DEBUG] Système RNG initialisé avec la graine : {GRAINE_ACTUELLE}")
-    return GRAINE_ACTUELLE
+    return graine_actuelle
 
 def calcul_chance_succes_epreuve(connaissance, difficulte, multiplicateur_global_diff): #donner un int connaissance à prendre sur la stat_player et la difficulté du boss à prendre dans dans le dico du boss choisi aléatoire)
-    proba_reussite_epreuve = (connaissance/100)**(difficulte/3*multiplicateur_global_diff)
+    proba_reussite_epreuve =0.95* (connaissance/100)**(difficulte/3*multiplicateur_global_diff) #0.95 pour s'assurer que la proba ne soit jamais à 100
     return proba_reussite_epreuve
 
 def reussite_ou_echec(proba_reussite):
