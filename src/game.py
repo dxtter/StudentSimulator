@@ -58,7 +58,7 @@ Votre périple commence maintenant. Que le décret paysage soit avec vous ! """)
        
     while stat_player["points de vie"] > 0 :  #boucle principale tant que la vie du joueur est supérieure à 0, le jeu continue
         compteur_de_tours_globaux += 1
-        print(f"{BOLD}Epreuve numéro {compteur_de_tours_globaux}\n{RESET}")
+        print(f"\n{BOLD}Epreuve numéro {compteur_de_tours_globaux}\n{RESET}")
         multiplicateur_global_difficulte += 0.075  #augmente légèrement la difficulté globale à chaque tour
         stat_player["points de connaissances"] =0 #à chaque tour, le joueur gagne des points de connaissance en fonction de son multiplicateur
         ennemi = choisit_un_ennemi_random() #choisir un ennemi aléatoire (son nom)
